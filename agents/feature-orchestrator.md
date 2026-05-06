@@ -33,7 +33,7 @@ When you delegate, use explicit `@agent-name` mentions. Pass state by reference 
 |---|---|---|
 | `/feature:init <description>` | `@intake-analyst` | user description + any flags |
 | `/feature:research` | `@project-researcher` (looped per area) | next area from research plan + prior notes |
-| `/feature:research:continue` (via `/feature:continue`) | `@project-researcher` | area + resume marker from `research.json` |
+| `/feature:continue` | `@project-researcher` | area + resume marker from `research.json` |
 | `/feature:plan` | `@feature-planner` | paths to `task.json` and `research.json` |
 | `/feature:review` | `@plan-critic` | path to `plan.json` |
 | `/feature:implement [STEP-id]` | `@feature-implementer` → `@test-engineer` → `@step-verifier` | one step ID |
