@@ -1,11 +1,12 @@
 {
-  "name": "zero-trust-feature-team",
-  "description": "Zero-trust feature implementation team — intake, research, plan, review, implement, test, and verify new features with eight specialized agents and eight slash commands. Multi-stage evidence-backed gates before any code is written. Persistent state survives /clear and context resets.",
-  "version": "1.0.0",
+  "name": "feature",
+  "description": "Zero-trust feature implementation team -- intake, research, plan, review, implement, test, and verify new features with eight specialized agents and eight slash commands. Multi-stage evidence-backed gates before any code is written. Persistent state survives /clear and context resets.",
+  "version": "1.0.1",
   "author": {
     "name": "bradselph"
   },
   "homepage": "https://github.com/bradselph/zero-trust-feature-team",
   "repository": "https://github.com/bradselph/zero-trust-feature-team",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": ["feature", "zero-trust", "planning", "verification", "agents"]
 }

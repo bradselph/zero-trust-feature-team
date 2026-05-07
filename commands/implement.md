@@ -1,5 +1,5 @@
 ---
-description: Implement one approved step through implementer → test-engineer → step-verifier.
+description: Implement one approved step through implementer -> test-engineer -> step-verifier.
 argument-hint: [STEP-id | next]
 allowed-tools: Read Grep Glob Edit Write Bash
 ---
@@ -12,7 +12,7 @@ The user's target: `$ARGUMENTS` (a specific `STEP-NNNN`, the word `next`, or emp
 
 ## Orchestrator, on receipt:
 
-1. **Preflight — the four pre-implementation gates.**
+1. **Preflight -- the four pre-implementation gates.**
 
    | Gate | Source of truth | Required value |
    |---|---|---|
@@ -35,7 +35,7 @@ The user's target: `$ARGUMENTS` (a specific `STEP-NNNN`, the word `next`, or emp
 
 4. **Dispatch implementer:**
 
-   > `@feature-implementer` — implement step `STEP-NNNN`. Step JSON: `.claude/feature-state/steps/STEP-NNNN.json`. Plan: `.claude/feature-state/plan.json` (note any `user_overrides`). Re-locate anchors before editing. Do not touch files outside `step.files[]`.
+   > `@feature-implementer` -- implement step `STEP-NNNN`. Step JSON: `.claude/feature-state/steps/STEP-NNNN.json`. Plan: `.claude/feature-state/plan.json` (note any `user_overrides`). Re-locate anchors before editing. Do not touch files outside `step.files[]`.
 
 5. **On implementer return:**
    - Verify `log/step-STEP-NNNN.md` was written.
@@ -45,18 +45,18 @@ The user's target: `$ARGUMENTS` (a specific `STEP-NNNN`, the word `next`, or emp
 
 6. **Dispatch test-engineer:**
 
-   > `@test-engineer` — write tests for step `STEP-NNNN`. Step log: `log/step-STEP-NNNN.md`. Step spec: `steps/STEP-NNNN.json`. Run Phase A (new tests) and Phase B (co-located existing tests), plus Phase C if the step is `breaking_change: true`.
+   > `@test-engineer` -- write tests for step `STEP-NNNN`. Step log: `log/step-STEP-NNNN.md`. Step spec: `steps/STEP-NNNN.json`. Run Phase A (new tests) and Phase B (co-located existing tests), plus Phase C if the step is `breaking_change: true`.
 
 7. **On test-engineer return:**
    - Verify the step log has a Tests section.
    - Read `test_status` from the log.
    - If `test_status: "regression"`: stop. Report the regression, set step `status: "in-progress"` (or `needs-human` if the regression is intentional and requires user judgment), tell the user the implementer must re-do or the user must accept the regression. Do **not** dispatch step-verifier.
-   - If `test_status: "behavior-mismatch"`: same handling — implementer's code does not match the BC's expected; step goes back to `in-progress`.
+   - If `test_status: "behavior-mismatch"`: same handling -- implementer's code does not match the BC's expected; step goes back to `in-progress`.
    - If `test_status: "passing"`, `"manual"`, `"not-applicable"`, or `"no-framework"`: proceed to step 8.
 
 8. **Dispatch step-verifier:**
 
-   > `@step-verifier` — independently verify step `STEP-NNNN`. Verify the four truths: plan-conformance, behavior-conformance, AC-contribution, no-regression. Step JSON: `steps/STEP-NNNN.json`. Step log: `log/step-STEP-NNNN.md`. Research log(s): `log/research-*.md`. Task: `task.json`.
+   > `@step-verifier` -- independently verify step `STEP-NNNN`. Verify the four truths: plan-conformance, behavior-conformance, AC-contribution, no-regression. Step JSON: `steps/STEP-NNNN.json`. Step log: `log/step-STEP-NNNN.md`. Research log(s): `log/research-*.md`. Task: `task.json`.
 
 9. **On step-verifier return:**
    - If verdict is `CONFIRM`: step status should now be `"verified"`. Report success.
@@ -69,7 +69,7 @@ The user's target: `$ARGUMENTS` (a specific `STEP-NNNN`, the word `next`, or emp
       Title: <step.title>
       Files changed: <n>
       Tests: <test_status>
-      Verifier: <CONFIRM | REJECT — reason: ...>
+      Verifier: <CONFIRM | REJECT -- reason: ...>
 
       <If CONFIRMED>
       AC contribution: <which ACs this step delivered toward>

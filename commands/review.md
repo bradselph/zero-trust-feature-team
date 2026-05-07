@@ -18,7 +18,7 @@ Run the plan-critic and present the plan to the user for explicit approval. Disp
 
 2. **Dispatch:**
 
-   > `@plan-critic` — independently review `.claude/feature-state/plan.json` against `task.json` and `research.json`. Verify the four truths: AC coverage, evidence anchors, constraint adherence, ordering soundness. Write your verdict to `plan.json.review.critic_verdict` and any recommendations to `plan.json.review.critic_recommendations`. Do not modify steps or the task.
+   > `@plan-critic` -- independently review `.claude/feature-state/plan.json` against `task.json` and `research.json`. Verify the four truths: AC coverage, evidence anchors, constraint adherence, ordering soundness. Write your verdict to `plan.json.review.critic_verdict` and any recommendations to `plan.json.review.critic_recommendations`. Do not modify steps or the task.
 
 3. **On critic return:**
    - Read `plan.json.review.critic_verdict`.
@@ -31,36 +31,36 @@ Run the plan-critic and present the plan to the user for explicit approval. Disp
    Display the plan + critic recommendations to the user. Format:
 
    ```
-   ┌─ Plan Review ─────────────────────────────────────────
-   │
-   │  Critic verdict: CONFIRM
-   │
-   │  Plan summary:
-   │    Total steps:           <n>
-   │    Files to be modified:  <list>
-   │    Files to be created:   <list>
-   │    ACs covered:           <m>/<m>
-   │    Sensitive-path steps:  <list> (require human review)
-   │    Breaking-change steps: <list>
-   │
-   │  Risks logged: <r>
-   │  Deferred (out-of-scope decisions): <e>
-   │
-   │  Critic recommendations (non-blocking):
-   │    REC-1  <description>  → <linked step>
-   │    REC-2  ...
-   │
-   │  Steps in execution order:
-   │    STEP-0001  [<kind>]  <files>  — <title>
-   │    STEP-0002  ...
-   │
-   └────────────────────────────────────────────────────────
+   +- Plan Review -----------------------------------------
+   |
+   |  Critic verdict: CONFIRM
+   |
+   |  Plan summary:
+   |    Total steps:           <n>
+   |    Files to be modified:  <list>
+   |    Files to be created:   <list>
+   |    ACs covered:           <m>/<m>
+   |    Sensitive-path steps:  <list> (require human review)
+   |    Breaking-change steps: <list>
+   |
+   |  Risks logged: <r>
+   |  Deferred (out-of-scope decisions): <e>
+   |
+   |  Critic recommendations (non-blocking):
+   |    REC-1  <description>  -> <linked step>
+   |    REC-2  ...
+   |
+   |  Steps in execution order:
+   |    STEP-0001  [<kind>]  <files>  -- <title>
+   |    STEP-0002  ...
+   |
+   \---------------------------------------------------------
 
    Approval gate. To proceed to /feature:implement, reply with one of:
-     "approved"                 → orchestrator marks plan approved as-is
-     "approved with: <list>"    → orchestrator records overrides and marks approved
-     "changes: <list>"          → orchestrator instructs planner to revise; you'll re-run /feature:review after
-     "reject"                   → plan archived, you can re-init or re-plan
+     "approved"                 -> orchestrator marks plan approved as-is
+     "approved with: <list>"    -> orchestrator records overrides and marks approved
+     "changes: <list>"          -> orchestrator instructs planner to revise; you'll re-run /feature:review after
+     "reject"                   -> plan archived, you can re-init or re-plan
    ```
 
    Wait for the user's reply.
@@ -68,7 +68,7 @@ Run the plan-critic and present the plan to the user for explicit approval. Disp
    - **"approved"**: set `plan.review.status: "approved"`, `plan.review.user_approved_at: "<iso8601>"`, `plan.review.user_approval_text: "<verbatim reply>"`. Print:
 
      ```
-     Plan approved. plan.review.status → "approved".
+     Plan approved. plan.review.status -> "approved".
      Next: /feature:implement to apply the first step (or /feature:implement STEP-NNNN to jump).
      ```
 
@@ -83,26 +83,26 @@ Run the plan-critic and present the plan to the user for explicit approval. Disp
    The critic found a blocking gap. Display:
 
    ```
-   ┌─ Plan Review ─────────────────────────────────────────
-   │
-   │  Critic verdict: REJECT
-   │  Reason: <one of: ac-uncovered | constraint-dropped | fabricated-anchor | ...>
-   │
-   │  Blocking gaps:
-   │    GAP-1  <description>
-   │           Evidence: <file:line — substring>
-   │    GAP-2  ...
-   │
-   │  Recommended action:
-   │    Re-run /feature:plan after the planner addresses these gaps,
-   │    OR explicitly accept-with-overrides if you judge a gap acceptable.
-   │
-   └────────────────────────────────────────────────────────
+   +- Plan Review -----------------------------------------
+   |
+   |  Critic verdict: REJECT
+   |  Reason: <one of: ac-uncovered | constraint-dropped | fabricated-anchor | ...>
+   |
+   |  Blocking gaps:
+   |    GAP-1  <description>
+   |           Evidence: <file:line -- substring>
+   |    GAP-2  ...
+   |
+   |  Recommended action:
+   |    Re-run /feature:plan after the planner addresses these gaps,
+   |    OR explicitly accept-with-overrides if you judge a gap acceptable.
+   |
+   \---------------------------------------------------------
 
    Reply with one of:
-     "re-plan"                  → orchestrator re-dispatches the planner with the critic's gaps
-     "accept gaps: <list>"      → orchestrator records the user's override, sets status approved, proceeds
-     "abort"                    → plan archived
+     "re-plan"                  -> orchestrator re-dispatches the planner with the critic's gaps
+     "accept gaps: <list>"      -> orchestrator records the user's override, sets status approved, proceeds
+     "abort"                    -> plan archived
    ```
 
    Wait for the reply. Handle as in the CONFIRM branch's analogous options.

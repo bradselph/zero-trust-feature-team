@@ -9,12 +9,12 @@ Final report generation. Dispatch `@feature-orchestrator`.
 
 ## Orchestrator, on receipt:
 
-### 1. Preflight — strict
+### 1. Preflight -- strict
 
 The summary is premature if **any** of these are true:
 
 - Any step in `steps/` has `status` in: `planned`, `in-progress`, `implemented`
-  - (`implemented` means awaiting step-verifier — not a terminal state)
+  - (`implemented` means awaiting step-verifier -- not a terminal state)
 - `plan.json` does not exist (nothing was planned)
 - `plan.review.status` is not `"approved"` (the plan was never accepted)
 
@@ -38,7 +38,7 @@ Do not write a partial report. Do not proceed.
 
 Write `.claude/feature-state/FINAL_REPORT.md` with the following sections.
 
-#### Section A — Feature
+#### Section A -- Feature
 
 - Title (from `task.json.title`)
 - Summary (from `task.json.summary`)
@@ -46,7 +46,7 @@ Write `.claude/feature-state/FINAL_REPORT.md` with the following sections.
 - Completed (`<iso8601>` now)
 - User's verbatim ask (from `task.user_request_verbatim`)
 
-#### Section B — Acceptance Criteria
+#### Section B -- Acceptance Criteria
 
 For every AC in `task.acceptance_criteria[]`:
 
@@ -55,18 +55,18 @@ For every AC in `task.acceptance_criteria[]`:
 - Steps that contributed: `STEP-NNNN (verified)`, `STEP-MMMM (needs-human)`, etc.
 - For `partial` or `undelivered`, the gap (which steps fell short and why)
 
-#### Section C — Steps Executed
+#### Section C -- Steps Executed
 
 Table format, one row per step:
 
 | Step | Order | Kind | Title | Files | ACs | Status | Verifier verdict |
 |---|---|---|---|---|---|---|---|
-| STEP-0001 | 1 | add-symbol | … | src/foo.ts | AC-1 | verified | CONFIRM |
+| STEP-0001 | 1 | add-symbol | ... | src/foo.ts | AC-1 | verified | CONFIRM |
 | ... | | | | | | | |
 
 Sourced from `steps/*.json` and `log/step-*.md`.
 
-#### Section D — Research Coverage
+#### Section D -- Research Coverage
 
 Brief summary of research that backed the plan:
 
@@ -76,13 +76,13 @@ Brief summary of research that backed the plan:
 - Gaps closed by new code: <list>
 - Assumption verdicts (CONFIRMED/REFUTED counts; surfaced PARTIAL/UNVERIFIABLE in Section F)
 
-#### Section E — Plan Decisions
+#### Section E -- Plan Decisions
 
 - The critic's recommendations (`plan.review.critic_recommendations`)
-- The user's overrides (`plan.review.user_overrides`) — these are the cases where the user chose to ship past a critic concern
+- The user's overrides (`plan.review.user_overrides`) -- these are the cases where the user chose to ship past a critic concern
 - Steps deferred at planning (`plan.deferred[]`)
 
-#### Section F — Residual Risks and Open Items
+#### Section F -- Residual Risks and Open Items
 
 For every entry in `plan.risks[]`:
 - Description, likelihood, impact, mitigation
@@ -98,7 +98,7 @@ For every research assumption that came back `partial` or `unverifiable`:
 - Why it could not be verified
 - Whether the implementation accommodated it
 
-#### Section G — Tests Added
+#### Section G -- Tests Added
 
 For every step that has a Tests section in its log:
 - Test files added or modified
@@ -107,14 +107,14 @@ For every step that has a Tests section in its log:
 
 This section is the test surface a future maintainer can run against this feature.
 
-#### Section H — Metadata
+#### Section H -- Metadata
 
 - task.created_at
 - plan.built_at
 - plan.review.user_approved_at
 - Final report timestamp
 - Tool versions (if known)
-- Agent set used (read from `.claude/agents/` — list each agent file + its last-modified date)
+- Agent set used (read from `.claude/agents/` -- list each agent file + its last-modified date)
 - Steps total: <n>; verified: <v>; non-verified terminal: <t>
 - ACs total: <n>; delivered: <d>; partial: <p>; undelivered: <u>
 
@@ -138,6 +138,6 @@ Do not append summarizing commentary. The report itself is the artifact; the cha
 
 - Never produce a partial summary. If preflight fails, refuse.
 - Never fabricate entries. Every row in the steps table comes from `steps/*.json` and `log/step-*.md`. Every AC entry comes from `task.json`. Every test entry comes from a step log section.
-- Never reclassify ACs in the summary. If an AC is `undelivered`, it stays `undelivered` — the summary is a factual reconstruction, not a re-grading.
-- Never omit `needs-human`, `wontfix`, or `deferred` items to make the report look cleaner. Those are the whole point — they tell future engineers what was consciously left undone.
+- Never reclassify ACs in the summary. If an AC is `undelivered`, it stays `undelivered` -- the summary is a factual reconstruction, not a re-grading.
+- Never omit `needs-human`, `wontfix`, or `deferred` items to make the report look cleaner. Those are the whole point -- they tell future engineers what was consciously left undone.
 - Do not write the report to `/mnt/user-data/outputs/` or anywhere outside `.claude/feature-state/`. The report belongs to the feature state, versioned with the rest of it.

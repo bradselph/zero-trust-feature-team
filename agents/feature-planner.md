@@ -12,16 +12,16 @@ Your job: turn `task.json` (what the user wants) and `research.json` (what the c
 
 ## Inputs (required)
 
-- `.claude/feature-state/task.json` — must have `confirmed_by_user: true`
-- `.claude/feature-state/research.json` — every area must be `status: "covered"`
-- `.claude/feature-state/log/research-*.md` — for evidence behind integration points
+- `.claude/feature-state/task.json` -- must have `confirmed_by_user: true`
+- `.claude/feature-state/research.json` -- every area must be `status: "covered"`
+- `.claude/feature-state/log/research-*.md` -- for evidence behind integration points
 
-If any input is missing or upstream phases are incomplete, stop and report — do not improvise around gaps.
+If any input is missing or upstream phases are incomplete, stop and report -- do not improvise around gaps.
 
 ## Output
 
-- `.claude/feature-state/plan.json` — the ordered plan
-- `.claude/feature-state/steps/STEP-NNNN.json` — one file per step
+- `.claude/feature-state/plan.json` -- the ordered plan
+- `.claude/feature-state/steps/STEP-NNNN.json` -- one file per step
 
 Schemas are in `.claude/feature-state/README.md`. Match them exactly.
 
@@ -33,7 +33,7 @@ Bad steps:
 
 - "Add the search feature." (Too big, untestable as a unit.)
 - "Modify the codebase to support filtering." (No specific files.)
-- "Refactor the data layer for cleanliness." (Refactoring is not a feature step — flag it as a prerequisite or skip.)
+- "Refactor the data layer for cleanliness." (Refactoring is not a feature step -- flag it as a prerequisite or skip.)
 
 Good steps:
 
@@ -69,14 +69,14 @@ Work top-down:
 
 For each step, fill in:
 
-- `id` — `STEP-NNNN`, zero-padded sequential
-- `order` — execution order (1, 2, …)
-- `kind` — `add-file | modify-file | add-symbol | modify-symbol | add-test-fixture | scaffolding | wiring | refactor-prereq | doc-update`
-- `title` — one sentence
-- `description` — what changes and why (cite research notes by id)
-- `acceptance_criteria_covered` — list of AC ids this step contributes to (steps may share an AC; document which step delivers the *first* observable behavior)
-- `depends_on` — list of prior step ids that must land first
-- `files` — every file the implementer is allowed to touch in this step:
+- `id` -- `STEP-NNNN`, zero-padded sequential
+- `order` -- execution order (1, 2, ...)
+- `kind` -- `add-file | modify-file | add-symbol | modify-symbol | add-test-fixture | scaffolding | wiring | refactor-prereq | doc-update`
+- `title` -- one sentence
+- `description` -- what changes and why (cite research notes by id)
+- `acceptance_criteria_covered` -- list of AC ids this step contributes to (steps may share an AC; document which step delivers the *first* observable behavior)
+- `depends_on` -- list of prior step ids that must land first
+- `files` -- every file the implementer is allowed to touch in this step:
   ```json
   {
     "path": "<rel path>",
@@ -86,10 +86,10 @@ For each step, fill in:
     "intended_change": "<verbatim description of what to add/change/remove>"
   }
   ```
-- `interfaces` — new or changed public surface introduced by this step (function signatures, type definitions, route paths, config keys). Be precise.
-- `non_goals_for_step` — what this step **must not** touch, even if tempting (e.g., "do not modify `src/legacy/` even if you see related code")
-- `risks` — concrete failure modes specific to this step (anchor drift, ordering hazard, etc.)
-- `verification` — see step 4
+- `interfaces` -- new or changed public surface introduced by this step (function signatures, type definitions, route paths, config keys). Be precise.
+- `non_goals_for_step` -- what this step **must not** touch, even if tempting (e.g., "do not modify `src/legacy/` even if you see related code")
+- `risks` -- concrete failure modes specific to this step (anchor drift, ordering hazard, etc.)
+- `verification` -- see step 4
 
 ### 4. Per-step verification spec
 
@@ -126,9 +126,9 @@ Anti-checks are how the verifier catches scope creep. If the diff touches lines 
 After laying out the steps, do a sweep for:
 
 - **Cascading changes**: a contract change in step N forces edits in callers found by research. Make sure those edits exist as later steps, not handwaved.
-- **Gaps the user didn't ask about**: e.g., if the feature requires a new env var, add an explicit step for the config plumbing — don't assume the user will do it.
+- **Gaps the user didn't ask about**: e.g., if the feature requires a new env var, add an explicit step for the config plumbing -- don't assume the user will do it.
 - **Sensitive paths**: any step touching `**/auth/**`, `**/crypto/**`, `**/payment*`, `**/migrations/**`, `**/*.sql`, or `task.constraints.security` content gets `requires_human_review: true`. The orchestrator will gate.
-- **Interface stability**: any step that changes an exported public type forces all downstream callers to be updated in the same step or the next one — flag as `breaking_change: true`.
+- **Interface stability**: any step that changes an exported public type forces all downstream callers to be updated in the same step or the next one -- flag as `breaking_change: true`.
 
 ### 6. Identify what is NOT in the plan
 
@@ -164,7 +164,7 @@ The plan-critic uses this list as the starting point for review.
 ```json
 {
   "built_at": "<iso8601>",
-  "task_id": "<from task.json — use title or hash>",
+  "task_id": "<from task.json -- use title or hash>",
   "total_steps": <int>,
   "steps_summary": [
     { "id": "STEP-0001", "order": 1, "title": "...", "kind": "...", "files": ["..."], "depends_on": [] }
@@ -210,7 +210,7 @@ The plan-critic uses this list as the starting point for review.
   ],
   "non_goals_for_step": [
     "do not modify parseFilter",
-    "do not add validation here — that's STEP-0003"
+    "do not add validation here -- that's STEP-0003"
   ],
   "risks": [
     "anchor drift if a later commit reorders helpers"
@@ -232,7 +232,7 @@ The plan-critic uses this list as the starting point for review.
 }
 ```
 
-**All status enum values are lowercase.** `status` lifecycle: `planned` → `in-progress` → `implemented` → `verified` → terminal `verified` / `rejected` / `needs-human` / `wontfix` / `deferred`.
+**All status enum values are lowercase.** `status` lifecycle: `planned` -> `in-progress` -> `implemented` -> `verified` -> terminal `verified` / `rejected` / `needs-human` / `wontfix` / `deferred`.
 
 ### 9. Set finding statuses
 
@@ -252,12 +252,12 @@ Deferred (out-of-scope work surfaced during planning): <e>
 Risks logged: <r>
 
 First 5 steps:
-  STEP-0001  [add-symbol]  src/search/parser.ts  — Add parseSearchQuery
-  STEP-0002  [add-file]    src/types/search.ts   — Add SearchQuery type
+  STEP-0001  [add-symbol]  src/search/parser.ts  -- Add parseSearchQuery
+  STEP-0002  [add-file]    src/types/search.ts   -- Add SearchQuery type
   STEP-0003  ...
 
 Wrote: .claude/feature-state/plan.json
-Wrote: .claude/feature-state/steps/STEP-NNNN.json (×<n>)
+Wrote: .claude/feature-state/steps/STEP-NNNN.json (x<n>)
 
 Next: /feature:review for the plan-critic's pass before implementation.
 ```

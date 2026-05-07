@@ -22,13 +22,13 @@ Execute the chunked research phase. Dispatch `@feature-orchestrator`.
 
 3. **Dispatch the researcher.** Pass the area id, paths, resume marker (if any), and references to the task and prior research:
 
-   > `@project-researcher` — research area `<id>` at paths `<glob list>`. Resume marker `<file:line>` if continuing. Task: `.claude/feature-state/task.json`. Prior research dir: `.claude/feature-state/log/`.
+   > `@project-researcher` -- research area `<id>` at paths `<glob list>`. Resume marker `<file:line>` if continuing. Task: `.claude/feature-state/task.json`. Prior research dir: `.claude/feature-state/log/`.
 
 4. **On researcher return:**
    - Verify the researcher's output ends with `STATUS: COMPLETE` or `STATUS: PARTIAL`.
    - Verify `research.json` was updated for this area.
    - Verify the per-area log was written: `log/research-<id>.md`.
-   - Verify any claimed `assumption_verdicts` and `open_question_answers` are present and reference real evidence (`<file>:<line> — <substring>`).
+   - Verify any claimed `assumption_verdicts` and `open_question_answers` are present and reference real evidence (`<file>:<line> -- <substring>`).
    - If any of those verifications fail, reject and redispatch with a note about what was missing.
 
    Then:
@@ -39,8 +39,8 @@ Execute the chunked research phase. Dispatch `@feature-orchestrator`.
 
    ```
    Research complete.
-     Areas covered: <n>/<n> · 100%
-     Files inspected: <total>  ·  Lines: <total>
+     Areas covered: <n>/<n> * 100%
+     Files inspected: <total>  *  Lines: <total>
      Assumptions resolved: <c confirmed> <r refuted> <p partial> <u unverifiable>
      Open questions answered: <a>/<b>
      Integration points identified: <i>

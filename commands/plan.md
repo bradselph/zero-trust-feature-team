@@ -31,7 +31,7 @@ Convert task + research into a sequenced, surgical step plan. Dispatch `@feature
 
 3. **Dispatch:**
 
-   > `@feature-planner` — build the implementation plan from `task.json` and `research.json`. Cite research evidence by file/line/anchor. Decompose into atomic steps with verification specs. Write `.claude/feature-state/plan.json` and one `steps/STEP-NNNN.json` per step.
+   > `@feature-planner` -- build the implementation plan from `task.json` and `research.json`. Cite research evidence by file/line/anchor. Decompose into atomic steps with verification specs. Write `.claude/feature-state/plan.json` and one `steps/STEP-NNNN.json` per step.
 
 4. **On planner return:**
    - Verify `plan.json` was written and conforms to schema.
@@ -57,8 +57,8 @@ Convert task + research into a sequenced, surgical step plan. Dispatch `@feature
      Risks logged:              <r>
 
    Top 5 steps by order:
-     STEP-0001  [<kind>]  <files>  — <title>
-     STEP-0002  [<kind>]  <files>  — <title>
+     STEP-0001  [<kind>]  <files>  -- <title>
+     STEP-0002  [<kind>]  <files>  -- <title>
      ...
 
    plan.review.status: draft

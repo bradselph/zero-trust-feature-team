@@ -18,7 +18,7 @@ The user's feature description: `$ARGUMENTS`
 
 2. Dispatch:
 
-   > `@intake-analyst` — capture the user's feature request: `$ARGUMENTS`. Interview the user for goals, non-goals, acceptance criteria, constraints, and assumptions. Write `.claude/feature-state/task.json`. Do not infer anything from the codebase.
+   > `@intake-analyst` -- capture the user's feature request: `$ARGUMENTS`. Interview the user for goals, non-goals, acceptance criteria, constraints, and assumptions. Write `.claude/feature-state/task.json`. Do not infer anything from the codebase.
 
 3. The intake-analyst will likely ask the user follow-up questions in batches. Let it. Do not interrupt or summarize. When the analyst's turn ends, it will print the captured spec and ask the user for explicit confirmation.
 
@@ -37,7 +37,7 @@ The user's feature description: `$ARGUMENTS`
      Open questions: <count> (<n> block research, <m> block plan)
      Assumptions to validate: <count>
    
-   task.confirmed_by_user: true ✓
+   task.confirmed_by_user: true [OK]
    
    Next: /feature:research to begin codebase research.
    ```

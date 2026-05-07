@@ -20,12 +20,12 @@
 
 All state is written locally to `.claude/feature-state/` in your project:
 
-- `task.json` — captured feature requirements
-- `research.json` — codebase research index
-- `plan.json` — implementation plan and review state
-- `steps/STEP-*.json` — per-step specifications and status
-- `log/` — per-area research traces and per-step implementation/verification logs
-- `FINAL_REPORT.md` — the final summary, when produced
+- `task.json` -- captured feature requirements
+- `research.json` -- codebase research index
+- `plan.json` -- implementation plan and review state
+- `steps/STEP-*.json` -- per-step specifications and status
+- `log/` -- per-area research traces and per-step implementation/verification logs
+- `FINAL_REPORT.md` -- the final summary, when produced
 
 This data never leaves your machine unless you explicitly commit it to version control. The `.gitignore` included with this plugin excludes all runtime state from git by default.
 

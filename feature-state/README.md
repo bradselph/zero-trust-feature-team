@@ -1,8 +1,8 @@
-# Feature State — Schema Reference
+# Feature State -- Schema Reference
 
-All agents read from and write to this directory. Every file is plain JSON or Markdown — diffable, reviewable, and persistent across `/clear`.
+All agents read from and write to this directory. Every file is plain JSON or Markdown -- diffable, reviewable, and persistent across `/clear`.
 
-> **Schema policy.** The templates below are the *only* legal shapes. Field names, casing, and enums are normative. Agents must copy these templates verbatim and fill in values — they must not invent fields, rename fields, or change casing.
+> **Schema policy.** The templates below are the *only* legal shapes. Field names, casing, and enums are normative. Agents must copy these templates verbatim and fill in values -- they must not invent fields, rename fields, or change casing.
 
 ---
 
@@ -36,7 +36,7 @@ Captured by `intake-analyst`. The user must explicitly confirm before any later 
   "constraints": {
     "must_use": ["the existing /api/documents endpoint pattern", "Postgres full-text search"],
     "must_not_use": ["external search services (no Algolia, no Elasticsearch)"],
-    "performance": "p95 < 200ms for queries against ≤10k documents",
+    "performance": "p95 < 200ms for queries against <=10k documents",
     "compatibility": "must work in supported browsers from the existing list",
     "security": "results must respect existing per-user document ACLs",
     "ui_ux": null
@@ -84,7 +84,7 @@ Top-level shape is an object. Per-area entries are keyed by `area_id` under `are
           "line_start": 41,
           "line_end": 58,
           "anchor": "app.get('/api/documents'",
-          "note": "current list endpoint — search will be added as a query param here"
+          "note": "current list endpoint -- search will be added as a query param here"
         }
       ],
       "reusable_primitives": [
@@ -97,10 +97,10 @@ Top-level shape is an object. Per-area entries are keyed by `area_id` under `are
         }
       ],
       "gaps": [
-        { "id": "GAP-1", "description": "no shared query-parser helper", "needed_for": "AC-1 — parsing 'invoice' from query string into a search vector" }
+        { "id": "GAP-1", "description": "no shared query-parser helper", "needed_for": "AC-1 -- parsing 'invoice' from query string into a search vector" }
       ],
       "assumption_verdicts": [
-        { "assumption_id": "A-1", "verdict": "partial", "evidence": "src/db/migrations/2024-03-01.sql:14 — body is text, no tsvector yet" }
+        { "assumption_id": "A-1", "verdict": "partial", "evidence": "src/db/migrations/2024-03-01.sql:14 -- body is text, no tsvector yet" }
       ],
       "open_question_answers": []
     },
@@ -123,9 +123,9 @@ Top-level shape is an object. Per-area entries are keyed by `area_id` under `are
 }
 ```
 
-**Valid `status` values** (lowercase): `not-started` · `partial` · `covered` · `research-failed`
+**Valid `status` values** (lowercase): `not-started` * `partial` * `covered` * `research-failed`
 
-**Valid `verdict` values for assumption_verdicts**: `confirmed` · `refuted` · `partial` · `unverifiable`
+**Valid `verdict` values for assumption_verdicts**: `confirmed` * `refuted` * `partial` * `unverifiable`
 
 ---
 
@@ -167,9 +167,9 @@ Written by `feature-planner`, reviewed by `plan-critic`, gated by user approval.
 }
 ```
 
-**Valid `review.status` values**: `draft` · `approved` · `rejected`
+**Valid `review.status` values**: `draft` * `approved` * `rejected`
 
-**Valid `critic_verdict` values**: `confirm` · `reject` · `null` (not yet reviewed)
+**Valid `critic_verdict` values**: `confirm` * `reject` * `null` (not yet reviewed)
 
 ---
 
@@ -200,7 +200,7 @@ All fields are required (use `null` for absent values, not omission). IDs are ze
   ],
   "non_goals_for_step": [
     "do not modify parseFilter",
-    "do not add validation here — that's STEP-0005",
+    "do not add validation here -- that's STEP-0005",
     "do not export from a different module"
   ],
   "risks": [
@@ -228,18 +228,18 @@ All fields are required (use `null` for absent values, not omission). IDs are ze
 }
 ```
 
-**Valid `kind` values**: `add-file` · `modify-file` · `add-symbol` · `modify-symbol` · `add-test-fixture` · `scaffolding` · `wiring` · `refactor-prereq` · `doc-update`
+**Valid `kind` values**: `add-file` * `modify-file` * `add-symbol` * `modify-symbol` * `add-test-fixture` * `scaffolding` * `wiring` * `refactor-prereq` * `doc-update`
 
-**Valid `action` values for `files[]`**: `create` · `modify` · `delete`
+**Valid `action` values for `files[]`**: `create` * `modify` * `delete`
 
-**Valid `status` lifecycle**: `planned` → `in-progress` → `implemented` → `verified`
-**Terminal:** `verified` · `wontfix` · `needs-human` · `deferred`
+**Valid `status` lifecycle**: `planned` -> `in-progress` -> `implemented` -> `verified`
+**Terminal:** `verified` * `wontfix` * `needs-human` * `deferred`
 
 - `needs-human`: implementer or step-verifier raised dissent the user must resolve
 - `deferred`: user chose to skip this step (recorded with reason)
-- `wontfix`: rare — only for cases like the target file having been deleted between plan and implement
+- `wontfix`: rare -- only for cases like the target file having been deleted between plan and implement
 
-**Valid `method` values for `behavior_checks[]`**: `unit-test` · `integration-test` · `manual-repro` · `grep-anchor`
+**Valid `method` values for `behavior_checks[]`**: `unit-test` * `integration-test` * `manual-repro` * `grep-anchor`
 
 ---
 
@@ -256,32 +256,32 @@ Content: enumerated public surface, key flows with traces and anchors, conventio
 Written by `feature-implementer`, then appended to by `test-engineer` and `step-verifier`.
 
 Sections (in order of authorship):
-1. **Step Record** — plan reference, pre-flight checks, change plan, edits applied, sanity checks, anti-checks, implementer observations (`feature-implementer`)
-2. **Tests** — framework, tests written per BC, results across phases, `test_status` (`test-engineer`)
-3. **Step-Verifier Verdict** — CONFIRM/REJECT with truth-by-truth evidence (`step-verifier`)
+1. **Step Record** -- plan reference, pre-flight checks, change plan, edits applied, sanity checks, anti-checks, implementer observations (`feature-implementer`)
+2. **Tests** -- framework, tests written per BC, results across phases, `test_status` (`test-engineer`)
+3. **Step-Verifier Verdict** -- CONFIRM/REJECT with truth-by-truth evidence (`step-verifier`)
 
 ---
 
 ## `FINAL_REPORT.md`
 
-Written by the orchestrator on `/feature:summary`. Only exists when the feature is complete (every step terminal). Do not write to this file manually — its contents are a factual reconstruction from the state files above.
+Written by the orchestrator on `/feature:summary`. Only exists when the feature is complete (every step terminal). Do not write to this file manually -- its contents are a factual reconstruction from the state files above.
 
 ---
 
 ## State transitions (summary)
 
 ```
-Research area:  not-started → partial → covered
-                                      └→ research-failed
+Research area:  not-started -> partial -> covered
+                                      \--> research-failed
 
-Plan:           draft → approved
-                     └→ rejected
+Plan:           draft -> approved
+                     \--> rejected
 
-Step:           planned → in-progress → implemented → verified
-                                                    └→ needs-human
-                                       └→ needs-human
-                       └→ needs-human
-                       └→ deferred (user skipped)
+Step:           planned -> in-progress -> implemented -> verified
+                                                    \--> needs-human
+                                       \--> needs-human
+                       \--> needs-human
+                       \--> deferred (user skipped)
                                         wontfix (rare; e.g., file deleted)
 ```
 
@@ -303,7 +303,7 @@ Step:           planned → in-progress → implemented → verified
 - Every step's `files[*].anchor` must trace to either a `research.areas[*].integration_points[]` entry or a `gaps[]` entry. The plan-critic enforces this.
 - Every research area in `research.json` must have a corresponding `log/research-<area-id>.md`. The orchestrator enforces this on each researcher return.
 - Every step with `status: "implemented"` or later must have a `linked_log` pointing to an existing `log/step-STEP-NNNN.md`. Same for `linked_verifier_log` when status is `verified`.
-- `plan.review.status == "approved"` is required before any step can transition `planned → in-progress`.
+- `plan.review.status == "approved"` is required before any step can transition `planned -> in-progress`.
 - `task.confirmed_by_user == true` is required before research starts.
 
 ---
