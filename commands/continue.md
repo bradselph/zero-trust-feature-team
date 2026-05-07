@@ -1,5 +1,5 @@
 ---
-description: Resume a paused research run from the last STATUS: PARTIAL marker.
+description: "Resume a paused research run from the last STATUS: PARTIAL marker."
 allowed-tools: Read Grep Glob Edit Write Bash
 ---
 

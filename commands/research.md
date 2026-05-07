@@ -1,5 +1,5 @@
 ---
-description: Research the codebase area-by-area against the confirmed task. One area per turn, stops on STATUS: PARTIAL.
+description: "Research the codebase area-by-area against the confirmed task. One area per turn, stops on STATUS: PARTIAL."
 allowed-tools: Read Grep Glob Edit Write Bash
 ---
 
